@@ -1,0 +1,62 @@
+version: 2
+
+models:
+  - name: dim_clientes
+    columns:
+      - name: cliente_id
+        tests:
+          - not_null
+          - unique
+
+  - name: dim_produtos
+    columns:
+      - name: produto_id
+        tests:
+          - not_null
+          - unique
+
+  - name: dim_calendario
+    columns:
+      - name: data
+        tests:
+          - not_null
+          - unique
+
+  - name: fato_vendas
+    columns:
+      - name: pedido_id
+        tests:
+          - not_null
+      - name: item_id
+        tests:
+          - not_null
+          - unique
+      - name: cliente_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref("dim_clientes")
+              field: cliente_id
+      - name: produto_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref("dim_produtos")
+              field: produto_id
+
+  - name: fato_metas
+    columns:
+      - name: mes
+        tests:
+          - not_null
+          - unique
+      - name: meta_vendas
+        tests:
+          - not_null
+
+  - name: kpi_mensal
+    columns:
+      - name: mes
+        tests:
+          - not_null
+          - unique

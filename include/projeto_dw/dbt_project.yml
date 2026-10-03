@@ -1,0 +1,13 @@
+name: projeto_dw
+version: "1.0.0"
+profile: projeto_dw
+model-paths: ["models"]
+test-paths: ["tests"]
+models:
+  projeto_dw:
+    silver:
+      +schema: silver
+      +materialized: view
+    gold:
+      +schema: gold
+      +materialized: view

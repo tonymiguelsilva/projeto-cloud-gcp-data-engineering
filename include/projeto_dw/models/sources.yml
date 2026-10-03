@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: bronze
+    database: project-c3b69582-833e-4e2a-88c
+    schema: bronze
+    tables:
+      - name: clientes
+      - name: produtos
+      - name: pedidos
+      - name: itens_pedido
+      - name: metas_vendas
+      - name: weather_current
