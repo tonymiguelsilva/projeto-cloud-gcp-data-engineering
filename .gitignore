@@ -19,3 +19,6 @@ airflow.db
 
 .astro/
 dags/exampledag.py
+
+include/projeto_dw/target/
+include/projeto_dw/logs/
