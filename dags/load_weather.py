@@ -3,6 +3,11 @@ from pathlib import Path
 
 from airflow.sdk import dag, task
 
+import sys
+sys.path.append('/usr/local/airflow/include')
+
+from notifications import notify_success, notify_failure
+
 
 BUCKET = "cloud-data-engineering-raw-tony"
 GCS_PREFIX = "raw/weather"
@@ -14,6 +19,8 @@ GCS_PREFIX = "raw/weather"
     schedule=None,
     catchup=False,
     tags=["gcp", "api", "weather"],
+    on_success_callback=notify_success,
+    on_failure_callback=notify_failure,
 )
 def load_weather():
 

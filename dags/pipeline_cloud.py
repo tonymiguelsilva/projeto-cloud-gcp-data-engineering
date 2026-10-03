@@ -3,6 +3,11 @@ from pathlib import Path
 
 from airflow.sdk import dag, task
 
+import sys
+sys.path.append('/usr/local/airflow/include')
+
+from notifications import notify_success, notify_failure
+
 
 OUTPUT_DIR = Path("/tmp/projeto-2/extract/output")
 BUCKET = "cloud-data-engineering-raw-tony"
@@ -15,6 +20,8 @@ GCS_PREFIX = "raw"
     schedule=None,
     catchup=False,
     tags=["gcp", "data-engineering"],
+    on_success_callback=notify_success,
+    on_failure_callback=notify_failure,
 )
 def pipeline_cloud():
 

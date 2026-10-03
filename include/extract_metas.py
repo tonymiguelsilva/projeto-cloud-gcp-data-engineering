@@ -6,18 +6,18 @@ from pathlib import Path
 OUTPUT_DIR = Path("/tmp/projeto-2/extract/metas")
 
 METAS = [
-    {"mes": "2026-01", "meta_vendas": 420000},
-    {"mes": "2026-02", "meta_vendas": 430000},
-    {"mes": "2026-03", "meta_vendas": 450000},
-    {"mes": "2026-04", "meta_vendas": 460000},
-    {"mes": "2026-05", "meta_vendas": 470000},
-    {"mes": "2026-06", "meta_vendas": 480000},
-    {"mes": "2026-07", "meta_vendas": 500000},
-    {"mes": "2026-08", "meta_vendas": 510000},
-    {"mes": "2026-09", "meta_vendas": 520000},
-    {"mes": "2026-10", "meta_vendas": 530000},
-    {"mes": "2026-11", "meta_vendas": 550000},
-    {"mes": "2026-12", "meta_vendas": 600000},
+    {"mes": "2026-01", "meta_vendas": 18200000},
+    {"mes": "2026-02", "meta_vendas": 17800000},
+    {"mes": "2026-03", "meta_vendas": 19200000},
+    {"mes": "2026-04", "meta_vendas": 17900000},
+    {"mes": "2026-05", "meta_vendas": 18800000},
+    {"mes": "2026-06", "meta_vendas": 18500000},
+    {"mes": "2026-07", "meta_vendas": 19300000},
+    {"mes": "2026-08", "meta_vendas": 18700000},
+    {"mes": "2026-09", "meta_vendas": 19600000},
+    {"mes": "2026-10", "meta_vendas": 19000000},
+    {"mes": "2026-11", "meta_vendas": 20000000},
+    {"mes": "2026-12", "meta_vendas": 20500000},
 ]
 
 
@@ -28,7 +28,8 @@ def extract_metas():
     file_path = OUTPUT_DIR / f"metas_{timestamp}.json"
 
     with open(file_path, "w", encoding="utf-8") as arquivo:
-        json.dump(METAS, arquivo, ensure_ascii=False, indent=2)
+        for meta in METAS:
+            arquivo.write(json.dumps(meta, ensure_ascii=False) + "\n")
 
     print(f"Metas extraídas: {file_path}")
 
