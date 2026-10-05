@@ -1,3 +1,13 @@
+{{ config(
+    materialized="table",
+    partition_by={
+        "field": "data_pedido",
+        "data_type": "date",
+        "granularity": "month"
+    },
+    cluster_by=["cliente_id", "produto_id"]
+) }}
+
 select
     i.item_id,
     i.pedido_id,
