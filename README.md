@@ -1,4 +1,4 @@
-#  Cloud Data Engineering — GCP
+# Cloud Data Engineering — GCP
 
 Projeto completo de Engenharia de Dados desenvolvido para simular um ambiente corporativo de ingestão, transformação, qualidade e disponibilização de dados em nuvem.
 
@@ -17,7 +17,7 @@ O projeto implementa um pipeline **end-to-end**, partindo de um banco transacion
 
 ---
 
-##  Objetivo
+## Objetivo
 
 Construir uma arquitetura de dados moderna e reprodutível capaz de:
 
@@ -37,7 +37,7 @@ Construir uma arquitetura de dados moderna e reprodutível capaz de:
 
 ---
 
-##  Arquitetura
+## Arquitetura
 
 ```text
                     ┌─────────────────────┐
@@ -93,7 +93,7 @@ Construir uma arquitetura de dados moderna e reprodutível capaz de:
 
 ---
 
-##  Tecnologias
+## Tecnologias
 
 | Categoria | Tecnologia |
 |---|---|
@@ -111,7 +111,7 @@ Construir uma arquitetura de dados moderna e reprodutível capaz de:
 
 ---
 
-##  Estrutura do projeto
+## Estrutura do projeto
 
 ```text
 projeto_cloud_gcp_data_engineering/
@@ -146,9 +146,9 @@ projeto_cloud_gcp_data_engineering/
 
 ---
 
-#  Pipeline de dados
+## Pipeline de dados
 
-## 1. Extração
+### 1. Extração
 
 Os dados são extraídos do PostgreSQL utilizando Python, `psycopg2`, pandas e PyArrow.
 
@@ -156,7 +156,7 @@ Os arquivos são convertidos para **Parquet**, reduzindo o volume armazenado e m
 
 A extração utiliza controle incremental baseado no campo `updated_at`.
 
-### Watermark
+#### Watermark
 
 O controle da última execução é armazenado na tabela:
 
@@ -174,7 +174,7 @@ Dessa forma, o pipeline não precisa processar novamente todos os registros a ca
 
 ---
 
-## 2. Google Cloud Storage
+### 2. Google Cloud Storage
 
 Os arquivos Parquet são armazenados no bucket:
 
@@ -186,7 +186,7 @@ O GCS funciona como camada de armazenamento dos dados brutos antes da carga no D
 
 ---
 
-#  Bronze
+### Bronze
 
 A camada Bronze mantém os dados em sua forma mais próxima possível da origem.
 
@@ -214,7 +214,7 @@ Volumes validados:
 
 ---
 
-#  Silver
+### Silver
 
 A camada Silver é construída utilizando **dbt**.
 
@@ -236,7 +236,7 @@ O dbt é responsável pela transformação entre as camadas Bronze e Silver.
 
 ---
 
-#  Gold
+### Gold
 
 A camada Gold contém os dados preparados para análise.
 
@@ -246,20 +246,20 @@ Dataset:
 gold
 ```
 
-### Modelo dimensional
+#### Modelo dimensional
 
-#### Fatos
+##### Fatos
 
 - `fato_vendas`
 - `fato_metas`
 
-#### Dimensões
+##### Dimensões
 
 - `dim_clientes`
 - `dim_produtos`
 - `dim_calendario`
 
-#### KPIs
+##### KPIs
 
 - `kpi_mensal`
 
@@ -267,7 +267,7 @@ O modelo foi estruturado seguindo princípios de **modelagem dimensional**, faci
 
 ---
 
-#  Particionamento e Clustering
+## Particionamento e Clustering
 
 A tabela:
 
@@ -284,7 +284,7 @@ Essa estratégia reduz o volume de dados processado em consultas que utilizam fi
 
 ---
 
-#  Data Quality
+## Data Quality
 
 O projeto possui testes de qualidade implementados no dbt.
 
@@ -315,7 +315,7 @@ Os testes estão distribuídos entre os modelos dimensionais, fatos e indicadore
 
 ---
 
-#  Reconciliação financeira
+## Reconciliação financeira
 
 Foi implementada uma validação independente entre os pedidos e seus respectivos itens.
 
@@ -339,7 +339,7 @@ Também foram validados:
 
 ---
 
-#  Dados externos
+## Dados externos
 
 O projeto também possui uma etapa de ingestão de dados meteorológicos utilizando a API **Open-Meteo**.
 
@@ -347,7 +347,7 @@ A ingestão é orquestrada pelo Airflow e integrada ao ambiente de dados do proj
 
 ---
 
-#  Metas
+## Metas
 
 Foi implementada uma carga de metas para complementar os dados transacionais e permitir análises comparativas entre:
 
@@ -363,7 +363,7 @@ gold.fato_metas
 
 ---
 
-#  Orquestração
+## Orquestração
 
 O **Apache Airflow** é responsável pela execução e coordenação dos processos.
 
@@ -388,7 +388,7 @@ foi executado com sucesso após a validação final do projeto.
 
 ---
 
-#  Notificações
+## Notificações
 
 Foram implementadas notificações por e-mail para acompanhamento das execuções.
 
@@ -400,7 +400,7 @@ O projeto possui tratamento para:
 
 ---
 
-#  Documentação dbt
+## Documentação dbt
 
 A documentação do dbt foi gerada utilizando:
 
@@ -417,9 +417,9 @@ Resultado da geração:
 
 ---
 
-#  Como executar
+## Como executar
 
-## Pré-requisitos
+### Pré-requisitos
 
 - Docker
 - Python
@@ -430,7 +430,7 @@ Resultado da geração:
 
 ---
 
-## Clonar o projeto
+### Clonar o projeto
 
 ```bash
 git clone https://github.com/tonymiguelsilva/projeto-cloud-gcp-data-engineering.git
@@ -439,7 +439,7 @@ cd projeto-cloud-gcp-data-engineering
 
 ---
 
-## Inicializar o ambiente
+### Inicializar o ambiente
 
 O projeto utiliza Apache Airflow executado com Docker/Astro.
 
@@ -455,7 +455,7 @@ astro dev ps
 
 ---
 
-## Executar o pipeline
+### Executar o pipeline
 
 O DAG principal é:
 
@@ -467,7 +467,7 @@ Ele pode ser executado pelo Airflow para processar o fluxo completo.
 
 ---
 
-## Executar dbt
+### Executar dbt
 
 Dentro do ambiente Airflow:
 
@@ -495,7 +495,7 @@ dbt docs generate
 
 ---
 
-#  Resultados do projeto
+## Resultados do projeto
 
 O projeto foi validado com sucesso em um ambiente GCP, contemplando:
 
@@ -535,7 +535,7 @@ R$ 0,00
 
 ---
 
-#  Principais conceitos aplicados
+## Principais conceitos aplicados
 
 Este projeto foi desenvolvido para praticar conceitos presentes em ambientes reais de Engenharia de Dados:
 
@@ -558,7 +558,7 @@ Este projeto foi desenvolvido para praticar conceitos presentes em ambientes rea
 
 ---
 
-##  Autor
+## Autor
 
 **Tony Miguel Silva**
 
@@ -568,7 +568,7 @@ Projeto desenvolvido como parte da evolução prática em **Data Engineering, Cl
 
 ---
 
-##  Status
+## Status
 
 **Projeto concluído **
 
